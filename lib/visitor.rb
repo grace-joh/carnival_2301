@@ -7,4 +7,8 @@ class Visitor
     @spending_money = spending_money.gsub('$', '').to_i
     @preferences = []
   end
+
+  def add_preference(pref_symbol)
+    @preferences << pref_symbol
+  end
 end
