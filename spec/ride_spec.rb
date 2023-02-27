@@ -44,6 +44,17 @@ RSpec.describe Ride do
     it 'calculates the rides total revenue' do
       expect(@ride1.total_revenue).to eq(3)
     end
+
+    it 'boards rider only if they have enough spending money' do
+      @ride1.board_rider(@visitor2)
+      @ride1.board_rider(@visitor2)
+      @ride1.board_rider(@visitor2)
+      @ride1.board_rider(@visitor2)
+      @ride1.board_rider(@visitor2)
+      @ride1.board_rider(@visitor2)
+
+      expect(@ride1.rider_log).to eq({ @visitor1 => 2, @visitor2 => 5 })
+    end
   end
 
   describe '#board_rider for ride3' do
