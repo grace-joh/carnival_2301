@@ -3,7 +3,8 @@ class Ride
               :min_height,
               :admission_fee,
               :excitement,
-              :total_revenue
+              :total_revenue,
+              :rider_log
 
   def initialize(ride_details)
     @name = ride_details[:name]
@@ -11,5 +12,14 @@ class Ride
     @admission_fee = ride_details[:admission_fee]
     @excitement = ride_details[:excitement]
     @total_revenue = 0
+    @rider_log = Hash.new(0)
+  end
+
+  def board_rider(visitor)
+    return unless visitor.preferences.include?(@excitement) && visitor.height >= @min_height
+
+    @rider_log[visitor] += 1
+    visitor.spending_money -= @admission_fee
+    @total_revenue += @admission_fee
   end
 end
