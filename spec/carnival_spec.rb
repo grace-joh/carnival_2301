@@ -82,4 +82,60 @@ RSpec.describe Carnival do
       expect(@carnival.total_revenue).to eq(12)
     end
   end
+
+  describe '#visitor_count' do
+    it 'counts the number of unique visitors' do
+      @carnival.add_ride(@ride1)
+      @carnival.add_ride(@ride2)
+      @carnival.add_ride(@ride3)
+      @ride1.board_rider(@visitor1)
+      @ride1.board_rider(@visitor2)
+      @ride1.board_rider(@visitor1)
+      @ride2.board_rider(@visitor1)
+      @ride3.board_rider(@visitor2)
+      @ride3.board_rider(@visitor3)
+
+      expect(@carnival.visitor_count).to eq(3)
+    end
+  end
+
+  describe '#summary_report' do
+    it 'returns a hash of visitor count, revenue earned, list of visitors and rides with details' do
+      @carnival.add_ride(@ride1)
+      @carnival.add_ride(@ride2)
+      @carnival.add_ride(@ride3)
+      @ride1.board_rider(@visitor1)
+      @ride1.board_rider(@visitor2)
+      @ride1.board_rider(@visitor1)
+      @ride2.board_rider(@visitor1)
+      @ride3.board_rider(@visitor3)
+      @ride3.board_rider(@visitor3)
+
+      expect(@carnival.summary_report).to eq(
+        { 'Number of Visitors': 3,
+          'Revenue Earned': 12,
+          'List of Visitors': { visitor1 => { 'Favorite Ride': ride1 },
+                                visitor2 => { 'Favorite Ride': ride1 },
+                                visitor3 => { 'Favorite Ride': ride3 } } }
+      )
+    end
+  end
+
+  describe '#visitors' do
+    it 'returns a hash of visitor details' do
+      @carnival.add_ride(@ride1)
+      @carnival.add_ride(@ride2)
+      @carnival.add_ride(@ride3)
+      @ride1.board_rider(@visitor1)
+      @ride1.board_rider(@visitor2)
+      @ride1.board_rider(@visitor1)
+      @ride2.board_rider(@visitor1)
+      @ride3.board_rider(@visitor2)
+      @ride3.board_rider(@visitor3)
+
+      expect(@carnival.visitors).to eq({ visitor1 => { 'Favorite Ride': ride1 },
+                                         visitor2 => { 'Favorite Ride': ride1 },
+                                         visitor3 => { 'Favorite Ride': ride3 } })
+    end
+  end
 end
