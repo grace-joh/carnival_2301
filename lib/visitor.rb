@@ -11,4 +11,8 @@ class Visitor
   def add_preference(pref_symbol)
     @preferences << pref_symbol
   end
+
+  def tall_enough?(min_height)
+    height >= min_height
+  end
 end
