@@ -27,9 +27,9 @@ class Carnival
   def visitor_count
     visitor_array = []
     @rides.each do |ride|
-      ride.rider_log.each_key { |visitor| visitor_array |= visitor }
+      ride.rider_log.each_key { |visitor| visitor_array << visitor }
     end
-    visitor_array.size
+    visitor_array.uniq.size
   end
 
   def summary_report
