@@ -138,4 +138,20 @@ RSpec.describe Carnival do
                                          visitor3 => { 'Favorite Ride': ride3 } })
     end
   end
+
+  describe '.all' do
+    before(:each) do
+      Carnival.clear
+      # set up 
+    end
+
+    it 'generates total revenue for all carnival objects' do
+      expect(Carnival.total_revenue).to eq(8.5)
+      expect(Carnival.all).to eq([@carnival1, @carnival2])
+      expect(@carnival1.total_revenue).to eq(4.5)
+      expect(@carnival2.total_revenue).to eq(4)
+    end
+  end
+
+
 end
